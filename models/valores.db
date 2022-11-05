@@ -1,0 +1,120 @@
+{
+    {
+        nombre: "Banco para Biceps",
+        descripcion: "Nuestro banco de pesas puede soportar hasta 550 libras de peso para apoyar tus potentes entrenamientos.",
+        precio: 8000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/bancoBicep_sp7hpg.jpg',
+    },
+    {
+        nombre: "Banco para Pecho",
+        descripcion: "Banca básica para diferentes ejercicios y entrenamientos.",
+        precio: 6000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538509/GymImages/bancoPecho_mu4oqo.jpg',
+    },
+    {
+        nombre: "Máquina para Espalda",
+        descripcion: "Diseño ergonómico ajustable de alturas en el rodillo para mejor desempeño al realizar el desarrollo muscular.",
+        precio: 27000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/maquinaEspalda_exbsbe.png',
+    },
+    {
+        nombre: "Remadora",
+        descripcion: "El sistema de volante magnético suave y silencioso personalizado hace que el entrenamiento sea extremadamente silencioso.",
+        precio: 21000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/remadora_aad7pq.jpg',
+    },
+    {
+        nombre: "Bicicleta",
+        descripcion: "Nuestras bicicletas estacionarias están equipadas con acero grueso y marco triangular, garantizan la estabilidad mientras haces ciclismo y soportan hasta 330 libras.",
+        precio: 10000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538509/GymImages/bicicleta_oezoc2.jpg',
+    },
+}
+
+
+
+{
+    {
+        nombre: "Barra Olimpica",
+        descripcion: "Barra profesional de 1.2 m con bujes de bronce.",
+        precio: 7500,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/barraOlimpica_ncwmrh.jpg',
+    },
+    {
+        nombre: "Barra Z",
+        descripcion: "Capacidad, durabilidad, estabilidad y estética encontraras en esta barra que tiene un área de agarre de 20cm, soporta el peso de hasta 300 libras.",
+        precio: 6000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/barraZ_kjjdcm.jpg',
+    },
+    {
+        nombre: "Mancuernas",
+        descripcion: "10 pares de mancuernas hexagonales.",
+        precio: 12500,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/mancuernas_sthssk.jpg',
+    },
+    {
+        nombre: "Discos",
+        descripcion: "Set de discos olimpicos plastificados de 2.5 lbs a 45 lbs.",
+        precio: 15000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538509/GymImages/discos_iq8bzc.jpg',
+    },
+    {
+        nombre: "Kettlebells",
+        descripcion: "Pesas rusas premium de 10, 20 y 30 lbs.",
+        precio: 10000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538509/GymImages/kettlebells_ulao8z.jpg',
+    },
+}
+
+
+
+{
+    {
+        nombre: "Paralelas",
+        descripcion: "Perfectas para ejecutar push ups, muscle ups, front lever y back lever, planchas, dips, etc.",
+        precio: 8000,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/palalelas_npncj3.jpg',
+    },
+    {
+        nombre: "Anillos",
+        descripcion: "Ideal para usar peso corporal para entrenar y desarrollar la fuerza y la coordinación general de la parte superior del cuerpo.",
+        precio: 1500,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/anillos_hxc8o5.jpg',
+    },
+    {
+        nombre: "TRX",
+        descripcion: "Ajustadores de bloqueo y asas de goma resistente, fácil de usar, ergonómico.",
+        precio: 1200,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/trx_cp8i1o.jpg',
+    },
+    {
+        nombre: "Caja",
+        descripcion: "Duradera, estable, fácil de usar y montar, una opción perfecta para el centro de gimnasio con numerosos usuarios e ideal para hacer ejercicios de salto en casa.",
+        precio: 800,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538508/GymImages/caja_djrjzw.jpg',
+    },
+    {
+        nombre: "Ligas",
+        descripcion: "Paquete de 5 bandas de resistencia para estiramiento y entrenamiento de fuerza. Para yoga, terapia física y pilates.",
+        precio: 500,
+        imagen: 'https://res.cloudinary.com/ds5vhpr1h/image/upload/v1667538509/GymImages/ligas_ip3ipy.jpg',
+    },
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
