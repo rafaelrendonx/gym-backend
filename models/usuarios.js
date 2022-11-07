@@ -14,9 +14,9 @@ mongoose.connect(url)
     })
 
 const usuariosSchema = new mongoose.Schema({
-    name: String,
-    correo: String,
+    nombre: String,
     password: String,
+    correo: String,
 })
 
 usuariosSchema.set('toJSON', {

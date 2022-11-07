@@ -66,6 +66,66 @@ app.get("/equipamiento/calistenia/:id", (request, response, next) => {
         .catch(error => next(error))
 })
 
+app.get('/usuarios', (request, response) => {
+    Usuarios.find({}).then(usuario => {
+        response.json(usuario);
+    })
+})
+
+app.get("/usuarios/:id", (request, response, next) => {
+    Usuarios.findById(request.params.id)
+        .then(usuario => {
+            if (usuario) {
+                response.json(usuario)
+            } else {
+                response.status(404).end()
+            }
+        })
+        .catch(error => next(error))
+})
+
+app.post("/usuarios", (request, response, next) => {
+    const body = request.body;
+
+    const usuario = new Usuarios({
+        nombre: body.nombre,
+        password: body.password,
+        correo: body.correo,
+    });
+
+    usuario.save()
+        .then(savedUsuario => {
+            response.json(savedUsuario)
+        })
+        .catch(error => next(error))
+})
+
+app.put('/usuarios/:id', (request, response, next) => {
+    const body = request.body
+
+    const usuario = {
+        nombre: body.nombre,
+        password: body.password,
+        correo: body.correo,
+    }
+
+    Usuarios.findByIdAndUpdate(request.params.id, usuario, { new: true })
+        .then(updatedUsuario => {
+            response.json(updatedUsuario)
+        })
+        .catch(error => next(error))
+})
+
+
+app.delete("/usuarios/:id", (request, response, next) => {
+    Usuarios.findByIdAndRemove(request.params.id)
+        .then(result => {
+            response.status(204).end()
+        })
+        .catch(error => next(error))
+})
+
+
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
