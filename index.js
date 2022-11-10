@@ -6,6 +6,7 @@ const Pesas = require('./models/pesas')
 const Calistenia = require('./models/calistenia')
 const Usuarios = require('./models/usuarios')
 
+const path = require('path');
 const app = express()
 
 app.use(express.static('build'))
