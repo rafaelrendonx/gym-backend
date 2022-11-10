@@ -8,8 +8,14 @@ const Usuarios = require('./models/usuarios')
 
 const app = express()
 
+app.use(express.static('build'))
 app.use(cors())
 app.use(express.json())
+
+
+app.get('/', (req, res) => {
+    res.sendFile('index.html', { root: path.join(__dirname, 'build') });
+})
 
 app.get('/equipamiento/maquinas', (request, response) => {
     Maquinas.find({}).then(equipo => {
