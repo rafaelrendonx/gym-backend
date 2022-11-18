@@ -91,7 +91,7 @@ app.get("/usuarios/:id", (request, response, next) => {
         .catch(error => next(error))
 })
 
-app.post("/usuarios", (request, response, next) => {
+app.post("/usuarios/registro", (request, response, next) => {
     const body = request.body;
 
     const usuario = new Usuarios({
