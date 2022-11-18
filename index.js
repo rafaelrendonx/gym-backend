@@ -73,7 +73,7 @@ app.get("/equipamiento/calistenia/:id", (request, response, next) => {
         .catch(error => next(error))
 })
 
-app.get('/usuarios', (request, response) => {
+app.get('/usuarios/auth', (request, response) => {
     Usuarios.find({}).then(usuario => {
         response.json(usuario);
     })
@@ -91,7 +91,7 @@ app.get("/usuarios/:id", (request, response, next) => {
         .catch(error => next(error))
 })
 
-app.post("/usuarios", (request, response, next) => {
+app.post("/usuarios/auth", (request, response, next) => {
     const body = request.body;
 
     const usuario = new Usuarios({
