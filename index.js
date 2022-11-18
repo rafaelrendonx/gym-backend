@@ -73,7 +73,7 @@ app.get("/equipamiento/calistenia/:id", (request, response, next) => {
         .catch(error => next(error))
 })
 
-app.get('/usuarios/auth', (request, response) => {
+app.get('/usuarios/', (request, response) => {
     Usuarios.find({}).then(usuario => {
         response.json(usuario);
     })
@@ -91,7 +91,7 @@ app.get("/usuarios/:id", (request, response, next) => {
         .catch(error => next(error))
 })
 
-app.post("/usuarios/auth", (request, response, next) => {
+app.post("/usuarios/register", (request, response, next) => {
     const body = request.body;
 
     const usuario = new Usuarios({
@@ -105,6 +105,38 @@ app.post("/usuarios/auth", (request, response, next) => {
             response.json(savedUsuario)
         })
         .catch(error => next(error))
+})
+
+app.post("/usuarios/login", (request, response, next) => {
+    const { correo, password } = req.body
+
+    try {
+        const usuario = Usuarios.findOne({ correo })
+
+        if (!usuario) {
+            return res.status(400).json({
+                mensaje: "Usuario no encontrado",
+            })
+        }
+
+        const validPassword = () => {
+            return password === usuario.password
+        }
+
+        if (!validPassword) {
+            return res.status(400).json({
+                mensaje: "Password Incorrecto",
+            })
+        }
+
+        res.json({
+            mensaje: "Ok, usuario logeado"
+        })
+
+
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 app.put('/usuarios/:id', (request, response, next) => {
