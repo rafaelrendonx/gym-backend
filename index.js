@@ -108,13 +108,13 @@ app.post("/usuarios/register", (request, response, next) => {
 })
 
 app.post("/usuarios/login", (request, response, next) => {
-    const { correo, password } = req.body
+    const { correo, password } = request.body
 
     try {
         const usuario = Usuarios.findOne({ correo })
 
         if (!usuario) {
-            return res.status(400).json({
+            return response.status(400).json({
                 mensaje: "Usuario no encontrado",
             })
         }
@@ -124,12 +124,12 @@ app.post("/usuarios/login", (request, response, next) => {
         }
 
         if (!validPassword) {
-            return res.status(400).json({
+            return response.status(400).json({
                 mensaje: "Password Incorrecto",
             })
         }
 
-        res.json({
+        response.json({
             mensaje: "Ok, usuario logeado"
         })
 
