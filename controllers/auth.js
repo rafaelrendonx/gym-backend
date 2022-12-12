@@ -3,7 +3,6 @@ const Usuarios = require("../models/usuarios")
 const register = async () => {
     const { nombre, correo, password } = req.body
 
-    
 }
 
 const login = async (req, res) => {
