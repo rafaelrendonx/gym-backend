@@ -1,25 +1,21 @@
 const usuariosRouter = require('express').Router()
 const Usuarios = require('../models/usuarios')
 
-usuariosRouter.get('/', (request, response) => {
-    Usuarios.find({}).then(usuario => {
-        response.json(usuario);
-    })
+usuariosRouter.get('/', async (request, response) => {
+    const equipamiento = await Usuarios.find({})
+    response.json(equipamiento);
 })
 
-usuariosRouter.get('/:id', (request, response, next) => {
-    Usuarios.findById(request.params.id)
-        .then(usuario => {
-            if (usuario) {
-                response.json(usuario)
-            } else {
-                response.status(404).end()
-            }
-        })
-        .catch(error => next(error))
+usuariosRouter.get('/:id', async (request, response) => {
+    const equipamiento = await Usuarios.findById(request.params.id)
+    if (equipamiento) {
+        response.json(equipamiento)
+    } else {
+        response.status(404).end()
+    }
 })
 
-usuariosRouter.put('/:id', (request, response, next) => {
+usuariosRouter.put('/:id', async (request, response) => {
     const body = request.body
 
     const usuario = {
@@ -28,22 +24,17 @@ usuariosRouter.put('/:id', (request, response, next) => {
         correo: body.correo,
     }
 
-    Usuarios.findByIdAndUpdate(request.params.id, usuario, { new: true })
-        .then(updatedUsuario => {
-            response.json(updatedUsuario)
-        })
-        .catch(error => next(error))
+    const usuarioActualizado = await Usuarios.findByIdAndUpdate(request.params.id, usuario, { new: true })
+    response.json(usuarioActualizado)
+      
 })
 
-usuariosRouter.delete('/:id', (request, response, next) => {
-    Usuarios.findByIdAndRemove(request.params.id)
-        .then(result => {
-            response.status(204).end()
-        })
-        .catch(error => next(error))
+usuariosRouter.delete('/:id', async (request, response) => {
+    await Usuarios.findByIdAndRemove(request.params.id)
+    response.status(204).end()
 })
 
-usuariosRouter.post("/registro", (request, response, next) => {
+usuariosRouter.post("/registro", async (request, response) => {
     const body = request.body;
 
     const usuario = new Usuarios({
@@ -52,14 +43,12 @@ usuariosRouter.post("/registro", (request, response, next) => {
         correo: body.correo,
     });
 
-    usuario.save()
-        .then(savedUsuario => {
-            response.json(savedUsuario)
-        })
-        .catch(error => next(error))
+    const usuarioGuardado = await usuario.save()
+    response.json(usuarioGuardado)
+    
 })
 
-usuariosRouter.post("/login", (request, response, next) => {
+usuariosRouter.post("/login", (request, response) => {
     const { correo, password } = request.body
 
     try {

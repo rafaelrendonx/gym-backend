@@ -1,22 +1,19 @@
 const pesasRouter = require('express').Router()
 const Pesas = require('../models/pesas')
 
-pesasRouter.get('/', (request, response) => {
-    Pesas.find({}).then(equipo => {
-        response.json(equipo);
-    })
+pesasRouter.get('/', async (request, response) => {
+    const equipamiento = await Pesas.find({})
+    response.json(equipamiento);
 })
 
-pesasRouter.get('/:id', (request, response, next) => {
-    Pesas.findById(request.params.id)
-        .then(equipamiento => {
-            if (equipamiento) {
-                response.json(equipamiento)
-            } else {
-                response.status(404).end()
-            }
-        })
-        .catch(error => next(error))
+
+pesasRouter.get('/:id', async (request, response) => {
+    const equipamiento = await Pesas.findById(request.params.id)
+    if (equipamiento) {
+        response.json(equipamiento)
+    } else {
+        response.status(404).end()
+    }
 })
 
 module.exports = pesasRouter

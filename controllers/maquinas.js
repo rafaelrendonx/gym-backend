@@ -1,22 +1,18 @@
 const maquinasRouter = require('express').Router()
 const Maquinas = require('../models/maquinas')
 
-maquinasRouter.get('/', (request, response) => {
-    Maquinas.find({}).then(equipo => {
-        response.json(equipo);
-    })
+maquinasRouter.get('/', async (request, response) => {
+    const equipamiento = await Maquinas.find({})
+    response.json(equipamiento);
 })
 
-maquinasRouter.get('/:id', (request, response, next) => {
-    Maquinas.findById(request.params.id)
-        .then(equipamiento => {
-            if (equipamiento) {
-                response.json(equipamiento)
-            } else {
-                response.status(404).end()
-            }
-        })
-        .catch(error => next(error))
+maquinasRouter.get('/:id', async (request, response) => {
+    const equipamiento = await Maquinas.findById(request.params.id)
+    if (equipamiento) {
+        response.json(equipamiento)
+    } else {
+        response.status(404).end()
+    }
 })
 
 module.exports = maquinasRouter

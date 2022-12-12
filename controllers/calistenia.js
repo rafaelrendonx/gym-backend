@@ -1,22 +1,19 @@
 const calisteniaRouter = require('express').Router()
 const Calistenia = require('../models/calistenia')
 
-calisteniaRouter.get('/', (request, response) => {
-    Calistenia.find({}).then(equipo => {
-        response.json(equipo);
-    })
+calisteniaRouter.get('/', async (request, response) => {
+    const equipamiento = await Calistenia.find({})
+    response.json(equipamiento);
 })
 
-calisteniaRouter.get('/:id', (request, response, next) => {
-    Calistenia.findById(request.params.id)
-        .then(equipamiento => {
-            if (equipamiento) {
-                response.json(equipamiento)
-            } else {
-                response.status(404).end()
-            }
-        })
-        .catch(error => next(error))
+
+calisteniaRouter.get('/:id', async (request, response) => {
+    const equipamiento = await Calistenia.findById(request.params.id)
+    if (equipamiento) {
+        response.json(equipamiento)
+    } else {
+        response.status(404).end()
+    }
 })
 
 module.exports = calisteniaRouter
