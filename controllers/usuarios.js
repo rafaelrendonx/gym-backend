@@ -1,5 +1,6 @@
 const usuariosRouter = require('express').Router()
 const Usuarios = require('../models/usuarios')
+const { auth } = require('../utils/middleware')
 
 usuariosRouter.get('/', async (request, response) => {
     const usuario = await Usuarios.find({})
@@ -34,71 +35,43 @@ usuariosRouter.delete('/:id', async (request, response) => {
     response.status(204).end()
 })
 
-usuariosRouter.post("/register", async (request, response) => {
-
+usuariosRouter.get('/getUserData', async (request, response) => {
     try {
-        const body = request.body;
+        const { correo } = request.query;
 
-        const usuario = new Usuarios({
-            nombre: body.nombre,
-            password: body.password,
-            correo: body.correo,
-        });
-
-        usuario.hashPassword(body.password)
-
-        await usuario.save()
-
-        response.status(201).json({
-            mensaje: "Usuario Registrado",
-            detalles: {
-                userId: usuario._id,
-                token: usuario.generateJWT(),
+        if (correo || request.user) {
+            const usuario = correo
+                ? await Usuarios.findOne(
+                    { correo: correo },
+                    { correo: 1 }
+                )
+                : await Usuarios.findById(request.user.userId, {
+                    correo: 1,
+                });
+            if (!usuario) {
+                return response.status(404).json({
+                    mensaje: "Error",
+                    detalles: "No existe este usuario.",
+                });
             }
-        })
-    }
-    catch (e) {
-        console.log(e.message)
-        return response.status(500).json({
-            mensaje: "Error",
-            detalles: "Error Register",
-        })
-    }
-})
-
-usuariosRouter.post("/login", (request, response) => {
-
-    try {
-        const { correo, password } = request.body
-        const usuario = Usuarios.findOne({ correo })
-
-        if (!usuario) {
-            return response.status(404).json({
-                mensaje: "Usuario no encontrado",
-            })
-        }
-
-        if (usuario.verifyPassword(password)) {
             return response.status(200).json({
-                mensaje: "Usuario Logeado",
-                detalles: {
-                    userId: usuario._id,
-                    token: usuario.generateJWT(),
-                }
-            })
+                mensaje: "Info",
+                detalles: user,
+            });
         }
 
         return response.status(400).json({
-            mensaje: "Password Incorrecto",
-        })
-    }
-    catch (e) {
-        console.log(e.message)
-        return res.status(500).json({
             mensaje: "Error",
-            detalles: "Error Login",
+            detalles: "Es necesario enviar al menos un parámetro.",
+        });
+    } catch (e) {
+        console.log(e.message);
+        return response.status(500).json({
+            mensaje: "Error",
+            detalles: "Error fatal",
         });
     }
-})
+}, auth);
+
 
 module.exports = usuariosRouter
