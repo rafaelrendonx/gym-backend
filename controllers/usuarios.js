@@ -2,14 +2,14 @@ const usuariosRouter = require('express').Router()
 const Usuarios = require('../models/usuarios')
 
 usuariosRouter.get('/', async (request, response) => {
-    const equipamiento = await Usuarios.find({})
-    response.json(equipamiento);
+    const usuario = await Usuarios.find({})
+    response.json(usuario);
 })
 
 usuariosRouter.get('/:id', async (request, response) => {
-    const equipamiento = await Usuarios.findById(request.params.id)
-    if (equipamiento) {
-        response.json(equipamiento)
+    const usuario = await Usuarios.findById(request.params.id)
+    if (usuario) {
+        response.json(usuario)
     } else {
         response.status(404).end()
     }
@@ -44,12 +44,13 @@ usuariosRouter.post("/registro", async (request, response) => {
     });
 
     const usuarioGuardado = await usuario.save()
+
     response.json(usuarioGuardado)
     
 })
 
 usuariosRouter.post("/login", (request, response) => {
-    const { correo, password } = request.body
+    const { nombre, correo, password } = request.body
 
     try {
         const usuario = Usuarios.findOne({ correo })
@@ -70,9 +71,7 @@ usuariosRouter.post("/login", (request, response) => {
             })
         }
 
-        response.json({
-            mensaje: "Ok, usuario logeado"
-        })
+        response.json({ mensaje: "Login correcto", detalles: usuario.nombre });
 
     } catch (error) {
         console.log(error)
