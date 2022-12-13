@@ -26,7 +26,7 @@ usuariosRouter.put('/:id', async (request, response) => {
 
     const usuarioActualizado = await Usuarios.findByIdAndUpdate(request.params.id, usuario, { new: true })
     response.json(usuarioActualizado)
-      
+
 })
 
 usuariosRouter.delete('/:id', async (request, response) => {
@@ -34,47 +34,70 @@ usuariosRouter.delete('/:id', async (request, response) => {
     response.status(204).end()
 })
 
-usuariosRouter.post("/registro", async (request, response) => {
-    const body = request.body;
+usuariosRouter.post("/register", async (request, response) => {
 
-    const usuario = new Usuarios({
-        nombre: body.nombre,
-        password: body.password,
-        correo: body.correo,
-    });
+    try {
+        const body = request.body;
 
-    const usuarioGuardado = await usuario.save()
+        const usuario = new Usuarios({
+            nombre: body.nombre,
+            password: body.password,
+            correo: body.correo,
+        });
 
-    response.json(usuarioGuardado)
-    
+        usuario.hashPassword(body.password)
+
+        await usuario.save()
+
+        response.status(201).json({
+            mensaje: "Usuario Registrado",
+            detalles: {
+                userId: usuario._id,
+                token: usuario.generateJWT(),
+            }
+        })
+    }
+    catch (e) {
+        console.log(e.message)
+        return response.status(500).json({
+            mensaje: "Error",
+            detalles: "Error Register",
+        })
+    }
 })
 
 usuariosRouter.post("/login", (request, response) => {
-    const { nombre, correo, password } = request.body
 
     try {
+        const { correo, password } = request.body
         const usuario = Usuarios.findOne({ correo })
 
         if (!usuario) {
-            return response.status(400).json({
+            return response.status(404).json({
                 mensaje: "Usuario no encontrado",
             })
         }
 
-        const validPassword = () => {
-            return password === usuario.password
-        }
-
-        if (!validPassword) {
-            return response.status(400).json({
-                mensaje: "Password Incorrecto",
+        if (usuario.verifyPassword(password)) {
+            return response.status(200).json({
+                mensaje: "Usuario Logeado",
+                detalles: {
+                    userId: usuario._id,
+                    token: usuario.generateJWT(),
+                }
             })
         }
 
-        response.json({ mensaje: "Login correcto", detalles: usuario.nombre });
-
-    } catch (error) {
-        console.log(error)
+        return response.status(400).json({
+            mensaje: "Password Incorrecto",
+        })
+    }
+    catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            mensaje: "Error",
+            detalles: "Error Login",
+        });
     }
 })
 
