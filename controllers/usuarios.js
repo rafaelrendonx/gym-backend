@@ -71,7 +71,7 @@ usuariosRouter.get('/getUserData', async (request, response) => {
             detalles: "Error fatal",
         });
     }
-}, auth);
+});
 
 
 module.exports = usuariosRouter
