@@ -4,15 +4,9 @@ const jwt = require('jsonwebtoken')
 
 const usuariosSchema = new mongoose.Schema({
     nombre: String,
-    password: String,
     correo: String,
+    password: String,
     salt: String,
-})
-
-usuariosSchema.set('toJSON', {
-    transform: (document, returnedObject) => {
-        returnedObject.id = returnedObject._id.toString()
-    }
 })
 
 usuariosSchema.methods.encryptString = function (stringToEncrypt, salt) {
@@ -31,15 +25,9 @@ usuariosSchema.methods.verifyPassword = function (password) {
 };
 
 usuariosSchema.methods.generateJWT = function () {
-    return jwt.sign({ idUser: this._id, tipo: this.tipo }, process.env.SECRET);
+    return jwt.sign({ idUser: this._id }, process.env.SECRET);
 };
 
-usuariosSchema.methods.onSingGenerateJWT = function () {
-    return {
-        idUser: this._id,
-        tipo: this.tipo,
-        token: this.generateJWT(),
-    };
-};
+
 
 module.exports = mongoose.model('Usuarios', usuariosSchema)
