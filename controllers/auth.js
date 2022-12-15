@@ -4,19 +4,17 @@ const Usuarios = require('../models/usuarios')
 authRouter.post("/register", async (request, response) => {
 
     try {
-        const body = request.body;
+        const { password } = request.body;
+        delete request.body.password;
 
         const usuario = new Usuarios({
-            nombre: body.nombre,
-            password: body.password,
-            correo: body.correo,
+            ...request.body,
         });
 
-        usuario.hashPassword(body.password)
-
+        usuario.hashPassword(password)
         await usuario.save()
 
-        response.status(201).json({
+        return response.status(201).json({
             mensaje: "Usuario Registrado",
             detalles: {
                 userId: usuario._id,
@@ -33,7 +31,7 @@ authRouter.post("/register", async (request, response) => {
     }
 })
 
-authRouter.post("/login", (request, response) => {
+authRouter.post("/login", async (request, response) => {
 
     try {
         const { correo, password } = request.body
