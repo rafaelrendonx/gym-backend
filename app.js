@@ -8,7 +8,6 @@ const maquinasRouter = require('./controllers/maquinas')
 const pesasRouter = require('./controllers/pesas')
 const usuariosRouter = require('./controllers/usuarios')
 const authRouter = require('./controllers/auth')
-const homeRouter = require('./controllers/home')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
@@ -28,7 +27,6 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
-app.use('/', homeRouter)
 app.use('/equipamiento/calistenia', calisteniaRouter)
 app.use('/equipamiento/maquinas', maquinasRouter)
 app.use('/equipamiento/pesas', pesasRouter)
@@ -37,9 +35,5 @@ app.use('/auth', authRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
-
-app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: path.join(__dirname, 'build') });
-})
 
 module.exports = app
