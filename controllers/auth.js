@@ -5,9 +5,8 @@ authRouter.post("/register", async (request, response) => {
 
     try {
         const { password } = request.body;
+        
         console.log (password)
-        delete request.body.password;
-
         const usuario = new Usuarios({
             ...request.body,
         });
