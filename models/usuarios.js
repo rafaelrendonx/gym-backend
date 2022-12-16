@@ -30,4 +30,4 @@ usuariosSchema.methods.generateJWT = function () {
 
 
 
-module.exports = mongoose.model('Usuarios', usuariosSchema)
+module.exports = mongoose.model('Usuarios', usuariosSchema,)

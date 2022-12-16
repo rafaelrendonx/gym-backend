@@ -5,6 +5,7 @@ authRouter.post("/register", async (request, response) => {
 
     try {
         const { password } = request.body;
+        console.log (password)
         delete request.body.password;
 
         const usuario = new Usuarios({
@@ -35,12 +36,12 @@ authRouter.post("/login", async (request, response) => {
 
     try {
         const { correo, password } = request.body
-        const usuario = Usuarios.findOne({ correo })
+        const usuario = await Usuarios.findOne({ correo })
 
         if (!usuario) {
             return response.status(404).json({
                 mensaje: "Usuario no encontrado",
-            })
+            }) 
         }
 
         if (usuario.verifyPassword(password)) {
