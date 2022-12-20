@@ -28,6 +28,4 @@ usuariosSchema.methods.generateJWT = function () {
     return jwt.sign({ idUser: this._id }, process.env.SECRET);
 };
 
-
-
 module.exports = mongoose.model('Usuarios', usuariosSchema,)
