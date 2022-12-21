@@ -17,6 +17,7 @@ authRouter.post("/register", async (request, response) => {
         return response.status(201).json({
             mensaje: "Usuario Registrado",
             detalles: {
+                nombre: usuario.nombre,
                 userId: usuario._id,
                 token: usuario.generateJWT(),
             }
