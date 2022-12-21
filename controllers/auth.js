@@ -47,6 +47,7 @@ authRouter.post("/login", async (request, response) => {
             return response.status(200).json({
                 mensaje: "Usuario Logeado",
                 detalles: {
+                    nombre: usuario.nombre,
                     userId: usuario._id,
                     token: usuario.generateJWT(),
                 }
